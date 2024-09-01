@@ -10,7 +10,6 @@ import com.gestor.turnos_rotativos.repository.EmpleadoRepository;
 import com.gestor.turnos_rotativos.service.EmpleadoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -27,12 +26,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
     @Override
     public Long create(EmpleadoDTO empleadoDTO) {
-        if (empleadoDTO.getFechaNacimiento().isAfter(LocalDate.now())) {
-            throw new BusinessRuleFieldException("La fecha de nacimiento no puede ser posterior al día de la fecha.", "fechaNacimiento");
-        }
-        if (Period.between(empleadoDTO.getFechaNacimiento(), LocalDate.now()).getYears() < 18) {
-            throw new BusinessRuleFieldException("La edad del empleado no puede ser menor a 18 años.", "fechaNacimiento");
-        }
+        validationDates(empleadoDTO);
         Empleado empleado = mapper.toEntity(empleadoDTO);
         empleado = repository.save(empleado);
         return empleado.getId();
@@ -51,6 +45,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     @Override
     public EmpleadoDTO update(Long id, EmpleadoDTO empleadoDTO) {
         Empleado empleado = existById(id);
+        validationDates(empleadoDTO);
         mapper.updateEntityFromDto(empleado, empleadoDTO);
         return mapper.toDto(repository.save(empleado));
     }
@@ -66,6 +61,15 @@ public class EmpleadoServiceImpl implements EmpleadoService {
             return empleado.get();
         } else {
             throw new BusinessException("No se encontró el empleado con Id: " + id, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    private void validationDates(EmpleadoDTO empleadoDTO) {
+        if (empleadoDTO.getFechaNacimiento().isAfter(LocalDate.now())) {
+            throw new BusinessRuleFieldException("La fecha de nacimiento no puede ser posterior al día de la fecha.", "fechaNacimiento");
+        }
+        if (Period.between(empleadoDTO.getFechaNacimiento(), LocalDate.now()).getYears() < 18) {
+            throw new BusinessRuleFieldException("La edad del empleado no puede ser menor a 18 años.", "fechaNacimiento");
         }
     }
 }

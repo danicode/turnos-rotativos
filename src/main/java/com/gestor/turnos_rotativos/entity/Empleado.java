@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="emplados")
+@Table(name="empleados")
 public class Empleado {
 
     @Id
@@ -40,12 +40,12 @@ public class Empleado {
     private String email;
 
     @Column(name = "fecha_nacimiento", nullable = false)
-    @NotNull(message = "'fecha de nacimiento' es obligatorio.")
-    @Past(message = "La 'fecha de nacimiento' no puede ser posterior al día de la fecha.")
+    @NotNull(message = "Fecha de nacimiento es obligatorio.")
+    @Past(message = "La fecha de nacimiento no puede ser posterior al día de la fecha.")
     private LocalDate fechaNacimiento;
 
     @Column(name = "fecha_ingreso", nullable = false)
-    @NotNull(message = "'fecha de ingreso' es obligatorio.")
-    @PastOrPresent(message = "La 'fecha de ingreso' no puede ser posterior al día de la fecha.")
+    @NotNull(message = "Fecha de ingreso es obligatorio.")
+    @PastOrPresent(message = "La fecha de ingreso no puede ser posterior al día de la fecha.")
     private LocalDate fechaIngreso;
 }

@@ -72,5 +72,10 @@ public class EmpleadoMapperImpl implements GenericMapper<Empleado, EmpleadoDTO> 
         }
 
         empleado.setNombre(empleadoDto.getNombre());
+        empleado.setApellido(empleadoDto.getApellido());
+        empleado.setEmail(empleadoDto.getEmail());
+        empleado.setFechaIngreso(empleadoDto.getFechaIngreso());
+        empleado.setFechaNacimiento(empleadoDto.getFechaNacimiento());
+        empleado.setNroDocumento(empleadoDto.getNroDocumento());
     }
 }

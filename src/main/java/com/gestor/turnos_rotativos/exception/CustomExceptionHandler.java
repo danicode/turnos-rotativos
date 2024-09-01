@@ -2,15 +2,16 @@ package com.gestor.turnos_rotativos.exception;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -19,23 +20,51 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class CustomExceptionHandler {
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(
-            MethodArgumentNotValidException ex,
-            HttpHeaders headers, HttpStatus status, WebRequest request) {
+    /*@ExceptionHandler(HandlerMethodValidationException.class)
+    public ResponseEntity<Map<String, Object>> handleHandlerMethodValidationException(HandlerMethodValidationException ex) {
 
         Map<String, Object> responseBody = new LinkedHashMap<>();
         responseBody.put("timestamp", LocalDateTime.now());
-        responseBody.put("status", status.value());
+        responseBody.put("status", HttpStatus.BAD_REQUEST.value());
 
-        List<String> errors = ex.getBindingResult().getFieldErrors()
-                .stream()
-                .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .collect(Collectors.toList());
+        // Crear un mapa para almacenar los errores
+        Map<String, String> fieldErrors = ex.getAllErrors().stream()
+                .filter(error -> error instanceof FieldError)
+                .map(error -> (FieldError) error)
+                .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
 
-        responseBody.put("errors", errors);
+        // Agregar errores al responseBody
+        responseBody.put("fields", fieldErrors);
+        String message = String.join("\n", fieldErrors.values());
+        responseBody.put("message", message);
 
-        return new ResponseEntity<>(responseBody, headers, status);
+        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+    }*/
+
+    @ExceptionHandler(HandlerMethodValidationException.class)
+    public ResponseEntity<Map<String, Object>> handleHandlerMethodValidationException(HandlerMethodValidationException ex) {
+
+        Map<String, Object> responseBody = new LinkedHashMap<>();
+        responseBody.put("timestamp", LocalDateTime.now());
+        responseBody.put("status", HttpStatus.BAD_REQUEST.value());
+
+        // Crear un mapa para almacenar los errores agrupados por campo
+        Map<String, List<String>> fieldErrors = ex.getAllErrors().stream()
+                .filter(error -> error instanceof FieldError)
+                .map(error -> (FieldError) error)
+                .collect(Collectors.groupingBy(
+                        FieldError::getField,
+                        Collectors.mapping(FieldError::getDefaultMessage, Collectors.toList())
+                ));
+
+        // Agregar errores al responseBody
+        responseBody.put("fields", fieldErrors);
+        String message = fieldErrors.values().stream()
+                .flatMap(List::stream)
+                .collect(Collectors.joining("\n"));
+        responseBody.put("message", message);
+
+        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(BusinessException.class)

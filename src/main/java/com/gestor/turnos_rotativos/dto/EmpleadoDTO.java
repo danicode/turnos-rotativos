@@ -29,11 +29,11 @@ public class EmpleadoDTO {
     @Email(message = "El 'email' ingresado no es correcto.")
     private String email;
 
-    @NotNull(message = "'fechaNacimiento' es obligatorio.")
-    @Past(message = "La 'fechaNacimiento' no puede ser posterior al día de la fecha.")
+    @NotNull(message = "Fecha de nacimiento es obligatorio.")
+    @Past(message = "La fecha de nacimiento no puede ser posterior al día de la fecha.")
     private LocalDate fechaNacimiento;
 
-    @NotNull(message = "'fechaIngreso' es obligatorio.")
-    @PastOrPresent(message = "La 'fechaIngreso' no puede ser posterior al día de la fecha.")
+    @NotNull(message = "Fecha de ingreso es obligatorio.")
+    @PastOrPresent(message = "La fecha de ingreso no puede ser posterior al día de la fecha.")
     private LocalDate fechaIngreso;
 }
