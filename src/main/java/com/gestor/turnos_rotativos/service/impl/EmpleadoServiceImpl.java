@@ -9,6 +9,8 @@ import com.gestor.turnos_rotativos.mapper.impl.EmpleadoMapperImpl;
 import com.gestor.turnos_rotativos.repository.EmpleadoRepository;
 import com.gestor.turnos_rotativos.service.EmpleadoService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -63,7 +65,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         if (empleado.isPresent()) {
             return empleado.get();
         } else {
-            throw new BusinessException("Empleado no encontrado");
+            throw new BusinessException("No se encontró el empleado con Id: " + id, HttpStatus.NOT_FOUND);
         }
     }
 }

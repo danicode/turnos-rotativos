@@ -46,7 +46,7 @@ public class CustomExceptionHandler {
         responseBody.put("timestamp", LocalDateTime.now());
         responseBody.put("message", ex.getMessage());
 
-        return new ResponseEntity<>(responseBody, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(responseBody, ex.getStatusCode());
     }
 
     @ExceptionHandler(BusinessRuleFieldException.class)
