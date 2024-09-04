@@ -48,4 +48,8 @@ public class Empleado {
     @NotNull(message = "Fecha de ingreso es obligatorio.")
     @PastOrPresent(message = "La fecha de ingreso no puede ser posterior al día de la fecha.")
     private LocalDate fechaIngreso;
+
+    public String getNombreCompleto() {
+        return nombre + " " + apellido;
+    }
 }

@@ -45,19 +45,4 @@ public class ConceptoLaboralMapperImpl implements DataMapper<ConceptoLaboral, Co
                 .map(this::toDto)
                 .collect(Collectors.toList());
     }
-
-    @Override
-    public ConceptoLaboral toEntity(ConceptoLaboralDTO conceptoLaboralDTO) {
-        if (conceptoLaboralDTO == null) {
-            return null;
-        }
-
-        ConceptoLaboral conceptoLaboral = new ConceptoLaboral();
-        conceptoLaboral.setLaborable(conceptoLaboralDTO.getLaborable());
-        conceptoLaboral.setNombre(conceptoLaboralDTO.getNombre());
-        conceptoLaboral.setHsMaximo(conceptoLaboralDTO.getHsMaximo());
-        conceptoLaboral.setHsMinimo(conceptoLaboralDTO.getHsMinimo());
-
-        return conceptoLaboral;
-    }
 }

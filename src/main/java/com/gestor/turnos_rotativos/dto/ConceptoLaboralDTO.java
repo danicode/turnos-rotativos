@@ -14,10 +14,7 @@ import org.springframework.stereotype.Component;
 public class ConceptoLaboralDTO {
 
     private String nombre;
-
     private Integer hsMinimo;
-
     private Integer hsMaximo;
-
     private Boolean laborable;
 }

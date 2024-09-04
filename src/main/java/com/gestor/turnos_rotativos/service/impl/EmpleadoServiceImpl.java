@@ -43,6 +43,11 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     }
 
     @Override
+    public Empleado getEntityById(Long id) {
+        return existEntityById(id);
+    }
+
+    @Override
     public EmpleadoDTO update(Long id, EmpleadoDTO empleadoDTO) {
         Empleado empleado = existById(id);
         validationDates(empleadoDTO);
@@ -55,19 +60,25 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         this.repository.deleteById(id);
     }
 
+    @Override
+    public EmpleadoDTO getByNroDocumento(Integer nroDocumento) {
+        return mapper.toDto(repository.findByNroDocumento(nroDocumento));
+    }
+
     private Empleado existById(Long id) {
-        Optional<Empleado> empleado = this.repository.findById(id);
-        if (empleado.isPresent()) {
-            return empleado.get();
-        } else {
-            throw new BusinessException("No se encontró el empleado con Id: " + id, HttpStatus.NOT_FOUND);
-        }
+        return findOrFail(id, "No se encontró el empleado con Id: " + id);
+    }
+
+    private Empleado existEntityById(Long id) {
+        return findOrFail(id, "No existe el empleado ingresado.");
+    }
+
+    private Empleado findOrFail(Long id, String errorMessage) {
+        Optional<Empleado> empleado = repository.findById(id);
+        return empleado.orElseThrow(() -> new BusinessException(errorMessage, HttpStatus.NOT_FOUND));
     }
 
     private void validationDates(EmpleadoDTO empleadoDTO) {
-        if (empleadoDTO.getFechaNacimiento().isAfter(LocalDate.now())) {
-            throw new BusinessRuleFieldException("La fecha de nacimiento no puede ser posterior al día de la fecha.", "fechaNacimiento");
-        }
         if (Period.between(empleadoDTO.getFechaNacimiento(), LocalDate.now()).getYears() < 18) {
             throw new BusinessRuleFieldException("La edad del empleado no puede ser menor a 18 años.", "fechaNacimiento");
         }

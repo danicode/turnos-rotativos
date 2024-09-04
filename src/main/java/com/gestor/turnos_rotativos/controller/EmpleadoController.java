@@ -24,7 +24,7 @@ public class EmpleadoController {
     }
 
     @PostMapping("/empleados")
-    public ResponseEntity<EmpleadoDTO> create(@RequestBody EmpleadoDTO empleadoDTO) {
+    public ResponseEntity<EmpleadoDTO> create(@Valid @RequestBody EmpleadoDTO empleadoDTO) {
         Long id = service.create(empleadoDTO);
         return ResponseEntity.created(URI.create("/empleados/" + id))
                 .body(empleadoDTO);

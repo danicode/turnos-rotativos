@@ -9,7 +9,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
@@ -20,26 +19,35 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class CustomExceptionHandler {
 
-    /*@ExceptionHandler(HandlerMethodValidationException.class)
-    public ResponseEntity<Map<String, Object>> handleHandlerMethodValidationException(HandlerMethodValidationException ex) {
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
 
         Map<String, Object> responseBody = new LinkedHashMap<>();
         responseBody.put("timestamp", LocalDateTime.now());
         responseBody.put("status", HttpStatus.BAD_REQUEST.value());
 
         // Crear un mapa para almacenar los errores
-        Map<String, String> fieldErrors = ex.getAllErrors().stream()
-                .filter(error -> error instanceof FieldError)
-                .map(error -> (FieldError) error)
-                .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+        Map<String, List<String>> fieldErrors = new LinkedHashMap<>();
+
+        ex.getBindingResult().getFieldErrors().forEach(error -> {
+            String field = error.getField();
+            String errorMessage = error.getDefaultMessage();
+
+            // Si ya existe una lista de errores para este campo, añadimos el nuevo error
+            fieldErrors.computeIfAbsent(field, key -> new ArrayList<>()).add(errorMessage);
+        });
 
         // Agregar errores al responseBody
         responseBody.put("fields", fieldErrors);
-        String message = String.join("\n", fieldErrors.values());
+
+        // Crear un mensaje consolidado a partir de todos los errores
+        String message = fieldErrors.values().stream()
+                .flatMap(List::stream)
+                .collect(Collectors.joining("\n"));
         responseBody.put("message", message);
 
         return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
-    }*/
+    }
 
     @ExceptionHandler(HandlerMethodValidationException.class)
     public ResponseEntity<Map<String, Object>> handleHandlerMethodValidationException(HandlerMethodValidationException ex) {
