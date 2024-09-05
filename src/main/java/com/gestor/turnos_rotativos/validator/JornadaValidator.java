@@ -8,11 +8,14 @@ import com.gestor.turnos_rotativos.exception.BusinessException;
 import com.gestor.turnos_rotativos.exception.BusinessRuleFieldException;
 import com.gestor.turnos_rotativos.repository.JornadaRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @AllArgsConstructor
@@ -20,6 +23,47 @@ import java.util.List;
 public class JornadaValidator {
 
     private JornadaRepository repository;
+
+    public void validateJornadaRequestParam(String nroDocumento, String fechaDesde, String fechaHasta) {
+        validateDateFormat(fechaDesde);
+        validateDateFormat(fechaHasta);
+        validateNroDocumento(nroDocumento);
+        validateDateRange(fechaDesde, fechaHasta);
+    }
+
+    private void validateDateFormat(String date) {
+        if (date != null && !isValidDateFormat(date)) {
+            throw new BusinessException("Los campos ‘fechaDesde’ y ‘fechaHasta’ deben respetar el formato yyyy-mm-dd.", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    private void validateNroDocumento(String nroDocumento) {
+        if (nroDocumento != null && !isValidNroDocumento(nroDocumento)) {
+            throw new BusinessException("El campo ‘nroDocumento’ solo puede contener números enteros.", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    private void validateDateRange(String fechaDesde, String fechaHasta) {
+        if (fechaDesde != null && fechaHasta != null && fechaDesde.compareTo(fechaHasta) > 0) {
+            throw new BusinessException("El campo ‘fechaDesde’ no puede ser mayor que ‘fechaHasta’.", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // Validaciones adicionales
+    private boolean isValidDateFormat(String date) {
+        // Aquí implementas la validación para verificar el formato de la fecha yyyy-mm-dd.
+        try {
+            LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
+            return true;
+        } catch (DateTimeParseException ex) {
+            return false;
+        }
+    }
+
+    private boolean isValidNroDocumento(String nroDocumento) {
+        // Verifica si el nroDocumento es un número entero
+        return nroDocumento.matches("\\d+");
+    }
 
     public void validateJornadaRequest(JornadaRequestDTO jornadaRequestDTO, Empleado empleado, ConceptoLaboral conceptoLaboral) {
 

@@ -15,4 +15,12 @@ public interface JornadaRepository extends JpaRepository<Jornada, Long>  {
     List<Jornada> findByEmpleadoIdAndFechaBetween(Long idEmpleado, LocalDate inicioSemana, LocalDate finSemana);
     @Query("SELECT COUNT(j) FROM Jornada j WHERE j.conceptoLaboral.id = :conceptoId AND j.fecha = :fecha")
     Integer countByConceptoIdAndFecha(Integer conceptoId, LocalDate fecha);
+
+    List<Jornada> findByEmpleadoNroDocumento(Integer nroDocumento);
+    List<Jornada> findByFechaBetween(LocalDate fechaDesde, LocalDate fechaHasta);
+    List<Jornada> findByEmpleadoNroDocumentoAndFechaBetween(Integer nroDocumento, LocalDate fechaDesde, LocalDate fechaHasta);
+    @Query("SELECT j FROM Jornada j WHERE j.fecha >= :fecha")
+    List<Jornada> findByFechaAfterOrEqual(LocalDate fecha);
+    @Query("SELECT j FROM Jornada j WHERE j.fecha < :fecha")
+    List<Jornada> findByFechaBeforeOrEqual(LocalDate fecha);
 }

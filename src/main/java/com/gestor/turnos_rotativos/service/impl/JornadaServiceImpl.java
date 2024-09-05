@@ -17,7 +17,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +32,27 @@ public class JornadaServiceImpl implements JornadaService {
     private final JornadaValidator jornadaValidator;
 
     @Override
-    public List<JornadaResponseDTO> get() {
+    public List<JornadaResponseDTO> get(Integer nroDocumento, LocalDate fechaDesde, LocalDate fechaHasta) {
+        if (nroDocumento != null && fechaDesde != null && fechaHasta != null) {
+            return mapper.toDtos(repository.findByEmpleadoNroDocumentoAndFechaBetween(nroDocumento, fechaDesde, fechaHasta));
+        }
+
+        if (nroDocumento != null) {
+            return mapper.toDtos(repository.findByEmpleadoNroDocumento(nroDocumento));
+        }
+
+        if (fechaDesde != null && fechaHasta != null) {
+            return mapper.toDtos(repository.findByFechaBetween(fechaDesde, fechaHasta));
+        }
+
+        if (fechaDesde != null) {
+            return mapper.toDtos(repository.findByFechaAfterOrEqual(fechaDesde));
+        }
+
+        if (fechaHasta != null) {
+            return mapper.toDtos(repository.findByFechaBeforeOrEqual(fechaHasta));
+        }
+
         return mapper.toDtos(repository.findAll());
     }
 
