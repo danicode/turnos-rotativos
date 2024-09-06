@@ -4,6 +4,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -126,12 +127,12 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        HttpStatusCode statusCode = HttpStatus.CONFLICT;
         Map<String, Object> responseBody = new LinkedHashMap<>();
         responseBody.put("timestamp", LocalDateTime.now());
-        responseBody.put("status", HttpStatus.CONFLICT.value());
 
         String errorMessage = "Error de integridad de datos.";
-        String errorField = "desconocido";  // Valor por defecto para el campo problemático
+        String errorField = "desconocido";
 
         Throwable rootCause = ex.getRootCause();
 
@@ -141,6 +142,12 @@ public class CustomExceptionHandler {
             if (rootCause instanceof ConstraintViolationException) {
 
                 errorMessage = "Violación de restricción - " + rootMessage;
+
+                if (rootMessage.contains("ID_EMPLEADO") && rootMessage.contains("JORNADAS")) {
+                    statusCode = HttpStatus.BAD_REQUEST;
+                    errorMessage = "No es posible eliminar un empleado con jornadas asociadas.";
+                    errorField = "";
+                }
 
                 if (rootMessage.contains("DOCUMENTO")) {
                     errorMessage = "Ya existe un empleado con el documento ingresado.";
@@ -153,6 +160,12 @@ public class CustomExceptionHandler {
                 }
             } else {
                 errorMessage += " " + rootMessage;
+
+                if (rootMessage.contains("ID_EMPLEADO") && rootMessage.contains("JORNADAS")) {
+                    statusCode = HttpStatus.BAD_REQUEST;
+                    errorMessage = "No es posible eliminar un empleado con jornadas asociadas.";
+                    errorField = "";
+                }
 
                 if (rootMessage.contains("DOCUMENTO")) {
                     errorMessage = "Ya existe un empleado con el documento ingresado.";
@@ -168,9 +181,11 @@ public class CustomExceptionHandler {
             errorMessage += " " + ex.getMessage();
         }
 
+        responseBody.put("status", statusCode.value());
         responseBody.put("message", errorMessage);
-        responseBody.put("field", errorField);  // Añadir el campo problemático al cuerpo de la respuesta
-
-        return new ResponseEntity<>(responseBody, HttpStatus.CONFLICT);
+        if (!errorField.isEmpty()) {
+            responseBody.put("field", errorField);
+        }
+        return new ResponseEntity<>(responseBody, statusCode);
     }
 }

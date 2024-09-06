@@ -1,0 +1,1870 @@
+{
+	"info": {
+		"_postman_id": "106adfa7-ada1-41a3-bbb0-bb9296ffcb9b",
+		"name": "Turnos Rotativos",
+		"description": "```\nAPI de turnos rotativos que permite la administración de empleados, la obtención y gestión de conceptos laborales, y la planificación de jornadas laborales. Incluye funcionalidades para el ABM de empleados, consulta y asignación de jornadas, y creación de nuevas jornadas laborales según las necesidades del negocio.\n\n ```\n\n[Documentación API Turnos Rotativos](https://neorislab.stoplight.io/docs/api-turnos-rotativos/branches/main/nrowuxrl9uwnd-turnos-rotativos)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2924130"
+	},
+	"item": [
+		{
+			"name": "Empleado",
+			"item": [
+				{
+					"name": "Criterios de Aceptación de Alta",
+					"item": [
+						{
+							"name": "Menor a 18 años",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 30415653,\n    \"nombre\": \"German\",\n    \"apellido\": \"Zotella\",\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"2022-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mismo número de documento",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 30415653,\n    \"nombre\": \"German\",\n    \"apellido\": \"Zotella\",\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"1988-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registrado con el mismo email",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 304156531,\n    \"nombre\": \"German\",\n    \"apellido\": \"Zotella\",\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"1988-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fecha de ingreso es posterior al día de la fecha",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 304156531,\n    \"nombre\": \"German\",\n    \"apellido\": \"Zotella\",\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"1988-08-06\",\n    \"fechaIngreso\": \"2030-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fecha de nacimiento es posterior al día de la fecha",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 304156531,\n    \"nombre\": \"German\",\n    \"apellido\": \"Zotella\",\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"2030-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Email no cumple con el formato estándar de mail",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 304156531,\n    \"nombre\": \"German\",\n    \"apellido\": \"Zotella\",\n    \"email\": \"gzotellagmail.com\",\n    \"fechaNacimiento\": \"1988-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Nombre y/o apellido ingresado poseen números o caracteres especiales",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 304156531,\n    \"nombre\": \"German2\",\n    \"apellido\": \"Zotella1\",\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"1988-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Campo obligatorio no es ingresado",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 304156531,\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"1988-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Criterios de Aceptación de Actualizar",
+					"item": [
+						{
+							"name": "Alta",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 30415653,\n    \"nombre\": \"German\",\n    \"apellido\": \"Zotella\",\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"1998-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "No existe empleado",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 30415653,\n    \"nombre\": \"German\",\n    \"apellido\": \"Zotella\",\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"1988-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados/1000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados",
+										"1000"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Menor a 18 años",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 30415653,\n    \"nombre\": \"German\",\n    \"apellido\": \"Zotella\",\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"2022-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alta 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 31415654,\n    \"nombre\": \"Pepito\",\n    \"apellido\": \"Rogriguez\",\n    \"email\": \"prodriguez@gmail.com\",\n    \"fechaNacimiento\": \"1999-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mismo número de documento",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 31415654,\n    \"nombre\": \"German\",\n    \"apellido\": \"Zotella\",\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"1988-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registrado con el mismo email",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 304156531,\n    \"nombre\": \"German\",\n    \"apellido\": \"Zotella\",\n    \"email\": \"prodriguez@gmail.com\",\n    \"fechaNacimiento\": \"1988-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fecha de ingreso es posterior al día de la fecha",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 304156531,\n    \"nombre\": \"German\",\n    \"apellido\": \"Zotella\",\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"1988-08-06\",\n    \"fechaIngreso\": \"2030-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fecha de nacimiento es posterior al día de la fecha",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 304156531,\n    \"nombre\": \"German\",\n    \"apellido\": \"Zotella\",\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"2030-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Email no cumple con el formato estándar de mail",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 304156531,\n    \"nombre\": \"German\",\n    \"apellido\": \"Zotella\",\n    \"email\": \"gzotellagmail.com\",\n    \"fechaNacimiento\": \"1988-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Nombre y/o apellido ingresado poseen números o caracteres especiales",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 304156531,\n    \"nombre\": \"German2\",\n    \"apellido\": \"Zotella1\",\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"1988-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Campo obligatorio no es ingresado",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nroDocumento\": 304156531,\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"1988-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/empleados/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"empleados",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Previamente se debió ejecutar el request de Alta de Empleado"
+				},
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/empleados",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"empleados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nroDocumento\": 30415654,\n    \"nombre\": \"German\",\n    \"apellido\": \"Zotella\",\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"1998-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/empleados/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"empleados",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/empleados/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"empleados",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener por ID que no existe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/empleados/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"empleados",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/empleados/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"empleados",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Empleado que no existe",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/empleados/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"empleados",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nroDocumento\": 30415653,\n    \"nombre\": \"German\",\n    \"apellido\": \"Zotella\",\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"1998-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/empleados",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"empleados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alta 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nroDocumento\": 31415654,\n    \"nombre\": \"Pepito\",\n    \"apellido\": \"Rogriguez\",\n    \"email\": \"prodriguez@gmail.com\",\n    \"fechaNacimiento\": \"1999-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/empleados",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"empleados"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ConceptoLaboral",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/concepto-laboral",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"concepto-laboral"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por ID (Existente)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/concepto-laboral?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"concepto-laboral"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por Nombre (Existente)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/concepto-laboral?nombre=Turno Normal",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"concepto-laboral"
+							],
+							"query": [
+								{
+									"key": "nombre",
+									"value": "Turno Normal"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por Nombre (No existente)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/concepto-laboral?nombre=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"concepto-laboral"
+							],
+							"query": [
+								{
+									"key": "nombre",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por ID (No existente)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/concepto-laboral?id=100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"concepto-laboral"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Jornada",
+			"item": [
+				{
+					"name": "Resquest Básicas",
+					"item": [
+						{
+							"name": "Obtener Jornadas",
+							"item": [
+								{
+									"name": "Obtener Jornadas",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/jornada",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"jornada"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Obtener Jornadas dentro de un rango de fechas",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/jornada?fechaDesde=2024-09-01&fechaHasta=2024-09-05",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"jornada"
+											],
+											"query": [
+												{
+													"key": "fechaDesde",
+													"value": "2024-09-01"
+												},
+												{
+													"key": "fechaHasta",
+													"value": "2024-09-05"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Obtener jornadas por nro de documento",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/jornada?nroDocumento=12345678",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"jornada"
+											],
+											"query": [
+												{
+													"key": "nroDocumento",
+													"value": "12345678"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Obtener jornadas por rango de fechas y nro de documento",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/jornada?nroDocumento=87654321&fechaDesde=2024-09-02&fechaHasta=2024-09-05",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"jornada"
+											],
+											"query": [
+												{
+													"key": "nroDocumento",
+													"value": "87654321"
+												},
+												{
+													"key": "fechaDesde",
+													"value": "2024-09-02"
+												},
+												{
+													"key": "fechaHasta",
+													"value": "2024-09-05"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Obtener jornadas desde una fecha específica",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/jornada?fechaDesde=2024-09-02",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"jornada"
+											],
+											"query": [
+												{
+													"key": "fechaDesde",
+													"value": "2024-09-02"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Obtener jornadas hasta una fecha específica",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/jornada?fechaHasta=2024-09-05",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"jornada"
+											],
+											"query": [
+												{
+													"key": "fechaHasta",
+													"value": "2024-09-05"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Consultar jornadas que no existen o no coinciden con los parámetros",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/jornada?nroDocumento=99999999&fechaDesde=2024-08-01&fechaHasta=2024-08-31",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"jornada"
+											],
+											"query": [
+												{
+													"key": "nroDocumento",
+													"value": "99999999"
+												},
+												{
+													"key": "fechaDesde",
+													"value": "2024-08-01"
+												},
+												{
+													"key": "fechaHasta",
+													"value": "2024-08-31"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Casos Error Obtener Jornada",
+							"item": [
+								{
+									"name": "Fecha en formato incorrecto (debería devolver un error 400)",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/jornada?fechaDesde=01-01-2023",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"jornada"
+											],
+											"query": [
+												{
+													"key": "fechaDesde",
+													"value": "01-01-2023"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Nro de documento no es un número entero (debería devolver un error 400)",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/jornada?nroDocumento=abc123",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"jornada"
+											],
+											"query": [
+												{
+													"key": "nroDocumento",
+													"value": "abc123"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "fechaDesde es mayor que fechaHasta (debería devolver un error 400)",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/v1/jornada?fechaDesde=2024-09-10&fechaHasta=2024-09-01",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"jornada"
+											],
+											"query": [
+												{
+													"key": "fechaDesde",
+													"value": "2024-09-10"
+												},
+												{
+													"key": "fechaHasta",
+													"value": "2024-09-01"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"description": "# Criterios de Aceptación\n\n• Cuando se invoca la operación de obtener conceptos laborales correctamente, se retorna el Status code 200 teniendo en cuenta que,\n\n```\n• En caso de que no se indiquen Query Params, se retornará la lista de todas las jornadas creadas.\n• En caso de que se indiquen los Query Params “fechaDesde” y “fechaHasta” con valores correctos y dentro del formato yyyy-mm-dd, se retornará una lista que contenga todas las jornadas dentro del rango de fechas especificado.\n• En caso de que se indique el Query Param “nroDocumento” con un valor correcto, se retornará una lista que contenga todas las jornadas que coincidan con el número de documento ingresado.\n• En caso de que se indiquen ambos Query Params \"fechaDesde\" y \"fechaHasta\" junto con \"nroDocumento\" con valores correctos, se retornará una lista que contenga todas las jornadas que coincidan con el rango de fechas y el número de documento ingresado.\n• En caso de que se indique solo un Query Param, ya sea \"fechaDesde\" o \"fechaHasta\", y el valor sea correcto, se considerará una búsqueda desde o hasta la fecha indicada.\n• En caso de que uno o más de los Query Params no coincidan con ninguna jornada laboral existente, se retornará una lista vacía.\n\n ```\n\n## Validaciones\n\n```\n• En caso de que se ingresen los Query Params “fechaDesde” o “fechaHasta” y no respeten el formato yyyy-mm-dd (Ej. 2023-01-01), el sistema muestra:\n    ◦ Status Code: 400 (BAD REQUEST)\n    ◦ Mensaje: “Los campos ‘fechaDesde’ y ‘fechaHasta’ deben respetar el formato yyyy-mm-dd.” \n• En caso de que se ingrese el Query Param “nroDocumento” valores distintos a un entero, el sistema muestra:\n    ◦ Status Code: 400 (BAD REQUEST)\n    ◦ Mensaje: “El campo ‘nroDocumento’ solo puede contener números enteros.”\n• En caso de que \"fechaDesde\" sea mayor que \"fechaHasta\", el sistema muestra:\n    ◦ Status Code: 400 (BAD REQUEST)\n    ◦ Mensaje: “El campo ‘fechaDesde’ no puede ser mayor que ‘fechaHasta’.”\n\n ```\n\n## Forma de probar\n\nPara poder realizar esta prueba se debe descomentar del application-dev.properties\n\n> **spring.sql.init.data-locations=classpath:db/jornada/data-get.sql** \n  \n\n```\n# spring.sql.init.data-locations=classpath:db/data.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-1.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-2.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-3.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-4.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-5.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-6.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-7.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-8.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-9.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-10.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-11.sql\nspring.sql.init.data-locations=classpath:db/jornada/data-get.sql\n\n ```"
+						},
+						{
+							"name": "Alta",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"idEmpleado\": 1,\n    \"idConcepto\": 1,\n    \"fecha\": \"2023-01-01\",\n    \"horasTrabajadas\": 8\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/jornada",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"jornada"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Criterios de Aceptación Alta de Jornada",
+					"item": [
+						{
+							"name": "Cuando se invoca al servicio de crear empleado",
+							"item": [
+								{
+									"name": "Si algún campo obligatorio no es ingresado",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"idEmpleado\": \"\",\n    \"idConcepto\": \"\",\n    \"fecha\": \"\",\n    \"horasTrabajadas\": 8\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/v1/jornada",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"jornada"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Alta Empleado",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"nroDocumento\": 30415653,\n    \"nombre\": \"German\",\n    \"apellido\": \"Zotella\",\n    \"email\": \"gzotella@gmail.com\",\n    \"fechaNacimiento\": \"1998-08-06\",\n    \"fechaIngreso\": \"2019-06-04\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/v1/empleados",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"empleados"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Si el concepto ingresado corresponde a ‘Turno Normal’ o ‘Turno Extra’ y no se ingresa el campo ‘hsTrabajadas’",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"idEmpleado\": 1,\n    \"idConcepto\": 1,\n    \"fecha\": \"2023-01-01\",\n    \"horasTrabajadas\": \"\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/v1/jornada",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"jornada"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Si el concepto ingresado corresponde a ‘Día Libre’ y se ingresa el campo ‘hsTrabajadas’",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"idEmpleado\": 1,\n    \"idConcepto\": 3,\n    \"fecha\": \"2023-01-01\",\n    \"horasTrabajadas\": 8\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/v1/jornada",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"jornada"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Si NO existe el empleado ingresado",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"idEmpleado\": 5,\n    \"idConcepto\": 1,\n    \"fecha\": \"2023-01-01\",\n    \"horasTrabajadas\": 8\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/v1/jornada",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"jornada"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Si NO existe el concepto ingresado",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"idEmpleado\": 1,\n    \"idConcepto\": 10,\n    \"fecha\": \"2023-01-01\",\n    \"horasTrabajadas\": 8\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/v1/jornada",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"v1",
+												"jornada"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "REGLAS DE NEGOCIO (Status Code 400)",
+							"item": [
+								{
+									"name": "01- Validaciones Combinadas",
+									"item": [
+										{
+											"name": "Un empleado puede cargar una jornada de turno normal o extra, siempre y cuando las horas trabajadas estén dentro del rango de horas mínimas y máximas del concepto elegido",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"idEmpleado\": 1,\n    \"idConcepto\": 1,\n    \"fecha\": \"2023-01-01\",\n    \"horasTrabajadas\": 9\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/api/v1/jornada",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api",
+														"v1",
+														"jornada"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"description": "Un empleado puede cargar una jornada de turno normal o extra, siempre  \ny cuando las horas trabajadas estén dentro del rango de horas  \nmínimas y máximas del concepto elegido\n\n**Mensaje**: “El rango de horas que se puede cargar para este concepto es de X - Y”  \nDonde X = horas mínimas e Y = horas máximas.\n\n## Forma de probar\n\nPara poder realizar esta prueba se debe descomentar del application-dev.properties\n\n> **spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-1.sql** \n  \n\n```\n# spring.sql.init.data-locations=classpath:db/data.sql\nspring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-1.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-2.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-3.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-4.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-5.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-6.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-7.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-8.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-9.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-10.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-11.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-get.sql\n\n ```"
+								},
+								{
+									"name": "02- Validaciones Combinadas",
+									"item": [
+										{
+											"name": "Carga jornada extra",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"idEmpleado\": 1,\n    \"idConcepto\": 2,\n    \"fecha\": \"2023-01-01\",\n    \"horasTrabajadas\": 6\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/api/v1/jornada",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api",
+														"v1",
+														"jornada"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"description": "Un empleado puede cargar una jornada de turno normal y una jornada de  \nturno extra en un mismo día, siempre y cuando la combinación no  \nsupere las 14 horas.\n\n**Mensaje**: “Un empleado no puede cargar más de 14 horas trabajadas en un día.”\n\n## Forma de probar\n\nPara poder realizar esta prueba se debe descomentar del application-dev.properties\n\n> **spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-2.sql** \n  \n\n```\n# spring.sql.init.data-locations=classpath:db/data.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-1.sql\nspring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-2.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-3.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-4.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-5.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-6.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-7.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-8.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-9.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-10.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-11.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-get.sql\n\n ```"
+								},
+								{
+									"name": "03- Validaciones Combinadas",
+									"item": [
+										{
+											"name": "jornada para superar 52 hs semanales",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"idEmpleado\": 1,\n    \"idConcepto\": 2,\n    \"fecha\": \"2024-08-28\",\n    \"horasTrabajadas\": 6\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/api/v1/jornada",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api",
+														"v1",
+														"jornada"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"description": "Un empleado no puede cargar más de 52 horas semanales.\n\n**Mensaje**: “El empleado ingresado supera las 52 horas semanales.”\n\n## Forma de probar\n\nPara poder realizar esta prueba se debe descomentar del application-dev.properties\n\n> **spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-3.sql** \n  \n\n```\n# spring.sql.init.data-locations=classpath:db/data.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-1.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-2.sql\nspring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-3.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-4.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-5.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-6.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-7.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-8.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-9.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-10.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-11.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-get.sql\n\n ```"
+								},
+								{
+									"name": "04- Validaciones Combinadas",
+									"item": [
+										{
+											"name": "Jornada 190 hs mensual",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"idEmpleado\": 1,\n    \"idConcepto\": 1,\n    \"fecha\": \"2024-08-28\",\n    \"horasTrabajadas\": 6\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/api/v1/jornada",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api",
+														"v1",
+														"jornada"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"description": "# Criterio de Aceptación\n\nUn empleado no puede cargar más de 190 horas mensuales.\n\n**Mensaje**: “El empleado ingresado supera las 190 horas mensuales.”\n\n## Forma de probar\n\nPara poder realizar esta prueba se debe descomentar del application-dev.properties\n\n> **spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-4.sql** \n  \n\n```\n# spring.sql.init.data-locations=classpath:db/data.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-1.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-2.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-3.sql\nspring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-4.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-5.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-6.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-7.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-8.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-9.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-10.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-11.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-get.sql\n\n ```"
+								},
+								{
+									"name": "05- Validaciones Combinadas",
+									"item": [
+										{
+											"name": "Agregar una nueva jornada en la misma fecha",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"idEmpleado\": 1,\n    \"idConcepto\": 1,\n    \"fecha\": \"2024-08-15\",\n    \"horasTrabajadas\": 8\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/api/v1/jornada",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api",
+														"v1",
+														"jornada"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"description": "Un empleado con “Día libre” en una fecha no puede cargar otra jornada en esa fecha.\n\n**Mensaje**: “El empleado ingresado cuenta con un día libre en esa fecha.”\n\n## Forma de probar\n\nPara poder realizar esta prueba se debe descomentar del application-dev.properties\n\n> **spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-5.sql** \n  \n\n```\n# spring.sql.init.data-locations=classpath:db/data.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-1.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-2.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-3.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-4.sql\nspring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-5.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-6.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-7.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-8.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-9.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-10.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-11.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-get.sql\n\n ```"
+								},
+								{
+									"name": "06- Validaciones Combinadas",
+									"item": [
+										{
+											"name": "Agregar 3er turno extra en la semana",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"idEmpleado\": 1,\n    \"idConcepto\": 2,\n    \"fecha\": \"2024-08-16\",\n    \"horasTrabajadas\": 2\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/api/v1/jornada",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api",
+														"v1",
+														"jornada"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"description": "Un empleado no puede cargar más de 3 turnos extra en una semana.\n\n**Mensaje**: “El empleado ingresado ya cuenta con 3 turnos extra esta semana.”\n\n## Forma de probar\n\nPara poder realizar esta prueba se debe descomentar del application-dev.properties\n\n> **spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-6.sql** \n  \n\n```\n# spring.sql.init.data-locations=classpath:db/data.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-1.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-2.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-3.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-4.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-5.sql\nspring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-6.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-7.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-8.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-9.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-10.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-11.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-get.sql\n\n ```"
+								},
+								{
+									"name": "07- Validaciones Combinadas",
+									"item": [
+										{
+											"name": "Agregar 5to turno normal en la semana",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"idEmpleado\": 1,\n    \"idConcepto\": 1,\n    \"fecha\": \"2024-08-16\",\n    \"horasTrabajadas\": 8\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/api/v1/jornada",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api",
+														"v1",
+														"jornada"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"description": "Un empleado no puede cargar más de 5 turnos normal en una semana.\n\n**Mensaje**: “El empleado ingresado ya cuenta con 5 turnos normales esta semana.”\n\n## Forma de probar\n\nPara poder realizar esta prueba se debe descomentar del application-dev.properties\n\n> **spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-7.sql** \n  \n\n```\n# spring.sql.init.data-locations=classpath:db/data.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-1.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-2.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-3.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-4.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-5.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-6.sql\nspring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-7.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-8.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-9.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-10.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-11.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-get.sql\n\n ```"
+								},
+								{
+									"name": "08- Validaciones Combinadas",
+									"item": [
+										{
+											"name": "Agregar 3er día libre en la semana",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"idEmpleado\": 1,\n    \"idConcepto\": 3,\n    \"fecha\": \"2024-08-14\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/api/v1/jornada",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api",
+														"v1",
+														"jornada"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"description": "Un empleado no puede tener más de 2 días libres por semana.\n\n**Mensaje**: “El empleado no cuenta con más días libres esta semana.”\n\n## Forma de probar\n\nPara poder realizar esta prueba se debe descomentar del application-dev.properties\n\n> **spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-8.sql** \n  \n\n```\n# spring.sql.init.data-locations=classpath:db/data.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-1.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-2.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-3.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-4.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-5.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-6.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-7.sql\nspring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-8.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-9.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-10.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-11.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-get.sql\n\n ```"
+								},
+								{
+									"name": "09- Validaciones Combinadas",
+									"item": [
+										{
+											"name": "Agregar 5to día libre en el mes",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"idEmpleado\": 1,\n    \"idConcepto\": 3,\n    \"fecha\": \"2024-08-27\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/api/v1/jornada",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api",
+														"v1",
+														"jornada"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"description": "Un empleado no puede tener más de 5 días libres en el mes.\n\n**Mensaje**: “El empleado no cuenta con más días libres esta mes.”\n\n## Forma de probar\n\nPara poder realizar esta prueba se debe descomentar del application-dev.properties\n\n> **spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-9.sql** \n  \n\n```\n# spring.sql.init.data-locations=classpath:db/data.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-1.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-2.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-3.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-4.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-5.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-6.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-7.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-8.sql\nspring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-9.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-10.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-11.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-get.sql\n\n ```"
+								},
+								{
+									"name": "10- Validaciones Combinadas",
+									"item": [
+										{
+											"name": "2da jornada con mismo concepto en un mismo día de empleado diferente",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"idEmpleado\": 3,\n    \"idConcepto\": 1,\n    \"fecha\": \"2024-08-12\",\n    \"horasTrabajadas\": 8\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/api/v1/jornada",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api",
+														"v1",
+														"jornada"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"description": "Por cada concepto de Jornada no puede haber más de dos empleados por día.\n\n**Mensaje**: “Ya existen 2 empleados registrados para este concepto en la fecha ingresada.”\n\n## Forma de probar\n\nPara poder realizar esta prueba se debe descomentar del application-dev.properties\n\n> **spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-10.sql** \n  \n\n```\n# spring.sql.init.data-locations=classpath:db/data.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-1.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-2.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-3.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-4.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-5.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-6.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-7.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-8.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-9.sql\nspring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-10.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-11.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-get.sql\n\n ```"
+								},
+								{
+									"name": "11- Validaciones Combinadas",
+									"item": [
+										{
+											"name": "2da jornada con mismo concepto en un mismo día para un mismo empleado",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"idEmpleado\": 1,\n    \"idConcepto\": 1,\n    \"fecha\": \"2024-08-12\",\n    \"horasTrabajadas\": 6\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/api/v1/jornada",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api",
+														"v1",
+														"jornada"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"description": "No es posible cargar para un empleado en una misma fecha, dos jornadas con el mismo concepto.\n\n**Mensaje**: “El empleado ya tiene registrado una jornada con este concepto en la fecha ingresada.”\n\n## Forma de probar\n\nPara poder realizar esta prueba se debe descomentar del application-dev.properties\n\n> **spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-11.sql** \n  \n\n```\n# spring.sql.init.data-locations=classpath:db/data.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-1.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-2.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-3.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-4.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-5.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-6.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-7.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-8.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-9.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-10.sql\nspring.sql.init.data-locations=classpath:db/jornada/data-criterio-aceptacion-11.sql\n# spring.sql.init.data-locations=classpath:db/jornada/data-get.sql\n\n ```"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

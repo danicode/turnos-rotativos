@@ -57,6 +57,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
     @Override
     public void delete(Long id) {
+        existById(id);
         this.repository.deleteById(id);
     }
 
