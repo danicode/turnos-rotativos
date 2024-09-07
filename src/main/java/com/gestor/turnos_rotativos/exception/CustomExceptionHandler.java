@@ -2,6 +2,8 @@ package com.gestor.turnos_rotativos.exception;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -20,28 +22,28 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class CustomExceptionHandler {
 
+    private static final Logger logger = LoggerFactory.getLogger(CustomExceptionHandler.class);
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+
+        logger.error("Validation error occurred: {}", ex.getMessage());
 
         Map<String, Object> responseBody = new LinkedHashMap<>();
         responseBody.put("timestamp", LocalDateTime.now());
         responseBody.put("status", HttpStatus.BAD_REQUEST.value());
 
-        // Crear un mapa para almacenar los errores
         Map<String, List<String>> fieldErrors = new LinkedHashMap<>();
 
         ex.getBindingResult().getFieldErrors().forEach(error -> {
             String field = error.getField();
             String errorMessage = error.getDefaultMessage();
 
-            // Si ya existe una lista de errores para este campo, añadimos el nuevo error
             fieldErrors.computeIfAbsent(field, key -> new ArrayList<>()).add(errorMessage);
         });
 
-        // Agregar errores al responseBody
         responseBody.put("fields", fieldErrors);
 
-        // Crear un mensaje consolidado a partir de todos los errores
         String message = fieldErrors.values().stream()
                 .flatMap(List::stream)
                 .collect(Collectors.joining("\n"));
@@ -53,11 +55,12 @@ public class CustomExceptionHandler {
     @ExceptionHandler(HandlerMethodValidationException.class)
     public ResponseEntity<Map<String, Object>> handleHandlerMethodValidationException(HandlerMethodValidationException ex) {
 
+        logger.error("Handler method validation error: {}", ex.getMessage());
+
         Map<String, Object> responseBody = new LinkedHashMap<>();
         responseBody.put("timestamp", LocalDateTime.now());
         responseBody.put("status", HttpStatus.BAD_REQUEST.value());
 
-        // Crear un mapa para almacenar los errores agrupados por campo
         Map<String, List<String>> fieldErrors = ex.getAllErrors().stream()
                 .filter(error -> error instanceof FieldError)
                 .map(error -> (FieldError) error)
@@ -66,7 +69,6 @@ public class CustomExceptionHandler {
                         Collectors.mapping(FieldError::getDefaultMessage, Collectors.toList())
                 ));
 
-        // Agregar errores al responseBody
         responseBody.put("fields", fieldErrors);
         String message = fieldErrors.values().stream()
                 .flatMap(List::stream)
@@ -80,6 +82,8 @@ public class CustomExceptionHandler {
     public ResponseEntity<Object> handleBussinessException(
             BusinessException ex, WebRequest request
     ) {
+        logger.error("Business exception: {}", ex.getMessage());
+
         Map<String, Object> responseBody = new LinkedHashMap<>();
         responseBody.put("timestamp", LocalDateTime.now());
         responseBody.put("message", ex.getMessage());
@@ -91,6 +95,8 @@ public class CustomExceptionHandler {
     public ResponseEntity<Object> handleBusinessRuleFieldException(
             BusinessRuleFieldException ex, WebRequest request
     ) {
+        logger.error("Business rule field exception: Field = {}, Message = {}", ex.getField(), ex.getMessage());
+
         Map<String, Object> responseBody = new LinkedHashMap<>();
         responseBody.put("timestamp", LocalDateTime.now());
         responseBody.put("message", ex.getMessage());
@@ -102,6 +108,8 @@ public class CustomExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException
             ex) {
+        logger.error("Constraint violation: {}", ex.getMessage());
+
         Map<String, Object> responseBody = new LinkedHashMap<>();
         responseBody.put("timestamp", LocalDateTime.now());
         responseBody.put("status", HttpStatus.BAD_REQUEST.value());
@@ -127,6 +135,8 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        logger.error("Data integrity violation: {}", ex.getMessage());
+
         HttpStatusCode statusCode = HttpStatus.CONFLICT;
         Map<String, Object> responseBody = new LinkedHashMap<>();
         responseBody.put("timestamp", LocalDateTime.now());
